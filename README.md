@@ -8,7 +8,7 @@
 
 ## Installation
 
-Download this repository as a ZIP archive.
+Download the extension from [here](payme.ocmod.zip).
 
 Sign into your OpenCart's admin panel.
 
