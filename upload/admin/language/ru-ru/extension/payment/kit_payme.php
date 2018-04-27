@@ -26,10 +26,6 @@ $_['entry_kit_payme_status_tovar']       = 'Добавить в чек данн�
 $_['entry_kit_payme_endpoint_url']       = 'Данные URL необходимо внести в настроеки кассы в кабинете поставщика';
 $_['entry_kit_payme_description']       = 'Настройки для кассы можно взять из кабинета <a href="https://paycom.uz/">поставщика</a> Раздел Параметры для разработчика';
 
-// Help
-$_['help_total']                     = 'The checkout total the order must reach before this payment method becomes active';
-$_['help_alipay_setup']              = '<a target="_blank" href="http://www.opencart.cn/docs/alipay">Click here</a> to learn how to set up Alipay account.';
-
 // Error
 $_['error_permission']               = 'Warning: You do not have permission to modify payment Alipay!';
 $_['error_kit_payme_merchant_id']                   = 'Идентификатор приложения требуется!';
