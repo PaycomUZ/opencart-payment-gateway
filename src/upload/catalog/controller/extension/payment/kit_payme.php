@@ -35,7 +35,7 @@ class ControllerExtensionPaymentKiTPayme extends Controller {
 				'total'					=> (int) $order_info['total']*100,
 				'Redirect'				=> str_replace('admin/', '', HTTPS_SERVER)."?route=extension/payment/kit_payme&f=OrderReturn",
 				//'merchant_key'   		=> $this->config->get('payment_kit_payme_enabled')=='Y'?$this->config->get('payment_kit_payme_merchant_private_key_test'):$this->config->get('payment_kit_payme_merchant_private_key'),
-				'gateway_url'           => $this->config->get('payment_kit_payme_enabled')=='Y'?$this->config->get('payment_kit_payme_checkout_url_test'):$this->config->get('payment_alipay_merchant_private_key'),
+				'gateway_url'           => $this->config->get('payment_kit_payme_enabled')=='Y'?$this->config->get('payment_kit_payme_checkout_url_test'):$this->config->get('payment_kit_payme_checkout_url'),
 				'pay_time'				=> $this->config->get('payment_kit_payme_callback_pay_time'),
 				'status_tovar'			=> $this->config->get('payment_kit_payme_status_tovar')
 		
