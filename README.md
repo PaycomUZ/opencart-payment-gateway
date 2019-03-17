@@ -8,7 +8,7 @@
 
 ## Installation
 
-Download the extension from [here](payme.ocmod.zip).
+Download the extension from [here](https://github.com/PaycomUZ/opencart-payment-gateway/releases/latest).
 
 Sign into your OpenCart's admin panel.
 
