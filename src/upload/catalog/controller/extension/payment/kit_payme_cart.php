@@ -1,5 +1,5 @@
 <?php
-class ControllerCheckoutKitPaymeCart extends Controller {
+class ControllerExtensionPaymentKitPaymeCart extends Controller {
 	public function index() {
 		$this->load->language('checkout/cart');
 		$this->load->language('extension/payment/kit_payme');
@@ -167,9 +167,9 @@ class ControllerCheckoutKitPaymeCart extends Controller {
 	
 	public function getProducts() {
 		$product_data = array();
-	
+
 		//$cart_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "cart WHERE api_id = '" . (isset($this->session->data['api_id']) ? (int)$this->session->data['api_id'] : 0) . "' AND customer_id = '" . (int)$this->customer->getId() . "' AND session_id = '" . $this->db->escape($this->session->getId()) . "'");
-		$cart_query = $this->db->query("SELECT s.name status,
+		$cart_query = $this->db->query("SELECT Upper(s.name) status,
 										       o.currency_id,
 										       oc.code currency_code,
 										       pp.tax_class_id,  
@@ -178,18 +178,26 @@ class ControllerCheckoutKitPaymeCart extends Controller {
 										       pp.image,
 										       p.*
 										  FROM ".DB_PREFIX."order_product p
-										  JOIN ".DB_PREFIX."order o
+										  LEFT JOIN `".DB_PREFIX."order` o
 										    ON o.order_id = p.order_id
-										  JOIN ".DB_PREFIX."order_status s
+										  LEFT JOIN ".DB_PREFIX."order_status s
 										    ON s.order_status_id = o.order_status_id
 										   AND s.language_id = '" . (int)$this->config->get('config_language_id') . "'
-										  JOIN ".DB_PREFIX."product pp
+										  LEFT JOIN ".DB_PREFIX."product pp
 										    ON pp.product_id = p.product_id
-										  JOIN ".DB_PREFIX."currency oc
+										  LEFT JOIN ".DB_PREFIX."currency oc
 										    ON oc.currency_id = o.currency_id
-										 WHERE o.order_id = {$this->request->get['order_id']}");
+									      LEFT JOIN ".DB_PREFIX."payme_transactions opt
+					                        ON opt.cms_order_id = o.order_id
+					                     WHERE p.order_id = '{$this->request->get['order_id']}'");
 		//print_r($cart_query->rows); exit();
-	
-		return $cart_query->rows;
+		if(empty($cart_query->rows[0]['status']))
+			header('Location: '.$_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].''.$_SERVER['SCRIPT_NAME'].'?route=checkout/checkout');
+		elseif(!is_array($cart_query->rows[0]['status'], array('PENDING', 'PROCESSING')))
+			//return $cart_query->rows;
+			header('Location: '.$_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].''.$_SERVER['SCRIPT_NAME'].'?route=checkout/success');
+		else
+			header('Location: '.$_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST'].''.$_SERVER['SCRIPT_NAME'].'?route=checkout/checkout');
+		exit();
 	}
 }

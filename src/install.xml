@@ -2,8 +2,8 @@
 <modification>
   <name>Payme Kit</name>
   <code>kit_payme</code>
-  <version>0.0.12-beta</version>
-  <author>Игамбердиев Бахтиёр Хабибулаевич </author>
+  <version>1.1.9</version>
+  <author>Игамбердиев Бахтиёр Хабибулаевич https://t.me/SkillUz</author>
   <link>http://skill.uz/</link>
 
   <file path="admin/controller/marketplace/install.php">

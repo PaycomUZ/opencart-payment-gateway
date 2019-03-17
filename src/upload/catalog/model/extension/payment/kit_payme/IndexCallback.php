@@ -46,7 +46,7 @@ class ExePaymeCallback {
 					   FROM {TABLE_PREFIX}payme_transactions t
 					  WHERE t.transaction_id = :p_transaction_id",
 					'Param'=>array(
-							':p_state' => '15'
+							':p_state' => '5'
 					)
 			);
 			
@@ -55,7 +55,7 @@ class ExePaymeCallback {
 					             Set order_status_id=:p_state
 							   Where order_id = :p_cms_order_id',
 					'Param'=>array(
-							':p_state' => '15'
+							':p_state' => '5'
 					)
 			);
 			
@@ -84,8 +84,9 @@ class ExePaymeCallback {
 					)
 			);
 			
-			$rezult = $PaymeCallback->Execute($Sql);
-			exit(json_encode($rezult));
+			$rezult = $PaymeCallback->Execute(null);
+			return array('return'=>$rezult, 'status'=>true);
+			//exit(json_encode($rezult));
 		}
 		else
 		{
@@ -102,7 +103,7 @@ class ExePaymeCallback {
 						"data" => array(function_exists('apache_response_headers')?$headers:headers_list()),
 						"time"=>Format::timestamp(true)
 				);
-				exit(json_encode($Param));
+				return array('return'=>$Param, 'status'=>false);
 			}
 			$Security = new Security();
 			$Get = $Security->_json(true);
@@ -126,13 +127,13 @@ class ExePaymeCallback {
 						"time"=>Format::timestamp(true)
 				);				
 			}
-
-			exit(json_encode($Param));
+			return array('return'=>$Param, 'status'=>false);
+			//exit(json_encode($Param));
 		}		
 	}
 
 }
 //print_r($db_group);
 if(isset($db_group))
-	ExePaymeCallback::Construct($db_group);
+	return ExePaymeCallback::Construct($db_group);
 ?>
