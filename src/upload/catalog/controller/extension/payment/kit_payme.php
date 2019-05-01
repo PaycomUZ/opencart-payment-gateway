@@ -32,9 +32,11 @@ class ControllerExtensionPaymentKiTPayme extends Controller {
 	
 		$this->load->model('checkout/order');
 	
-		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']);
+		$order_info = $this->model_checkout_order->getOrder($this->session->data['order_id']); 
 	
-		$out_trade_no = trim($order_info['order_id']);
+		//$out_trade_no = trim($order_info['order_id']);
+		$out_trade_no =$this->session->data['order_id'] ;
+		
 		$subject = trim($this->config->get('config_name'));
 		
 		$config = array (
