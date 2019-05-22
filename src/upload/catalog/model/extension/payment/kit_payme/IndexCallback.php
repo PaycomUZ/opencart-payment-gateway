@@ -9,29 +9,47 @@ include_once __DIR__.'/Core/Security.php';
 include_once __DIR__.'/Core/Format.php';
 include_once __DIR__.'/Core/Payme.php';
 include_once __DIR__.'/Core/PaymeCallback.php';
+
 class ExePaymeCallback {
 
-	
 	static function Construct($db_group){
+
 		define('LANG', 'ru');
-		
-		if(isset($_SERVER['PHP_AUTH_USER']))
-		{
-			date_default_timezone_set('Asia/Tashkent');
-			
+		date_default_timezone_set('Asia/Tashkent');
+
+		$check=false;
+
+		if(isset($_SERVER['PHP_AUTH_USER'])) {
+
 			if(isset($_SERVER['PHP_AUTH_PW'])){
+
 				define('PHP_AUTH_USER', $_SERVER['PHP_AUTH_USER']);
 				define('PHP_AUTH_PW', $_SERVER['PHP_AUTH_PW']);
-			}
-			else
-			{
+
+			} else {
+
 				$a = html_entity_decode(base64_decode( substr($_SERVER["PHP_AUTH_USER"],6)));
 				list($name, $password) = explode(':', $a);
-				//exit($password);
+
 				define('PHP_AUTH_USER', $name);
-				define('PHP_AUTH_PW', $password);
+				define('PHP_AUTH_PW',   $password);
 			}
-				
+
+			$check=true;
+
+		} else if(isset($_SERVER['REMOTE_USER'])) {
+
+		    $a = html_entity_decode(base64_decode( substr($_SERVER["REMOTE_USER"],6)));
+			list($name, $password) = explode(':', $a);
+
+			define('PHP_AUTH_USER', $name);
+			define('PHP_AUTH_PW',   $password);
+
+            $check=true;
+		}		
+		
+		if($check) {
+			
 			$PaymeCallback = new PaymeCallback($db_group);
 			
 			$Sql['PerformTransaction'][] = array(
@@ -87,10 +105,9 @@ class ExePaymeCallback {
 			$rezult = $PaymeCallback->Execute(null);
 			return array('return'=>$rezult, 'status'=>true);
 			//exit(json_encode($rezult));
-		}
-		else
-		{
 			
+		} else {
+		
 			if(!ini_get('register_globals'))
 			{
 				if(function_exists('apache_response_headers')){
@@ -131,7 +148,6 @@ class ExePaymeCallback {
 			//exit(json_encode($Param));
 		}		
 	}
-
 }
 //print_r($db_group);
 if(isset($db_group))
