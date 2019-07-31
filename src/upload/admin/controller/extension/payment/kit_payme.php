@@ -166,7 +166,8 @@ class ControllerExtensionPaymentKiTPayme extends Controller {
 				
 		$data['payment_kit_payme_callbak_url'] = str_replace('admin/', '', HTTPS_SERVER)."?route=extension/payment/kit_payme&f=Callback";
 		
-		$data['order_return'] = str_replace('admin/', '', HTTPS_SERVER)."?route=extension/payment/kit_payme_cart&f=OrderReturn";
+		$data['order_return'] = str_replace('admin/','',HTTPS_SERVER)."?route=extension/payment/kit_payme_cart&f=OrderReturn";
+
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
@@ -174,6 +175,7 @@ class ControllerExtensionPaymentKiTPayme extends Controller {
 		$this->response->setOutput($this->load->view('extension/payment/kit_payme', $data));
 	}
 	private function save($data){
+
 		$Dir_App = str_replace('admin/', 'catalog/', DIR_APPLICATION).'model/extension/payment/kit_payme/';
 			
 		define('TABLE_PREFIX', DB_PREFIX);
@@ -199,8 +201,7 @@ class ControllerExtensionPaymentKiTPayme extends Controller {
 			$Get['callback_pay']		= $this->request->post['payment_kit_payme_callback_pay_time'];
 			$Get['redirect']			= str_replace('admin/', '', HTTPS_SERVER)."?route=extension/payment/kit_payme_cart&f=OrderReturn";
 			$Return = include_once __DIR__.'/../../../../catalog/model/extension/payment/kit_payme/IndexConfigCreate.php';
-	}	
-		
+		}
 	}
 	private function validate() {
 		if (!$this->user->hasPermission('modify', 'extension/payment/kit_payme')) {
