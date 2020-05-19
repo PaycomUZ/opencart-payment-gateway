@@ -148,9 +148,9 @@
                 <select name="payment_kit_payme_callback_pay_time" id="payment-kit-payme-callback-pay-time" class="form-control">
                   {% for callback_pay_time in kit_payme_callback_pay_time %}
                     {% if callback_pay_time.value == payment_kit_payme_callback_pay_time %}
-                      <option value="{{ callback_pay_time.order_status_id }}" selected="selected">{{ callback_pay_time.name }}</option>
+                      <option value="{{ callback_pay_time.value }}" selected="selected">{{ callback_pay_time.name }}</option>
                     {% else %}
-                      <option value="{{ callback_pay_time.order_status_id }}">{{ callback_pay_time.name }}</option>
+                      <option value="{{ callback_pay_time.value }}">{{ callback_pay_time.name }}</option>
                     {% endif %}
                   {% endfor %}
                 </select>

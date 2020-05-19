@@ -42,7 +42,7 @@ class ControllerExtensionPaymentKiTPayme extends Controller {
 		// Fixed by Me
 		$redirect = str_replace('admin/', '', HTTPS_SERVER)."?route=extension/payment/kit_payme&f=OrderReturn";
 		//$redirect = str_replace('admin/', '', HTTPS_SERVER)."?route=extension/payment/kit_payme_cart&f=OrderReturn";
-        $redirect = str_replace('http://','', $redirect);
+        //$redirect = str_replace('http://','', $redirect);
 		
 		$config = array (
 				'merchant_id' 			=> $this->config->get('payment_kit_payme_merchant_id'),
@@ -137,7 +137,7 @@ class ControllerExtensionPaymentKiTPayme extends Controller {
 				'lang'				=> 'ru',												 //Язык. Доступные значения: ru|uz|en Другие значения игнорируются Значение по умолчанию ru
 				'currency'			=> $currency, 											 // Валюта. Доступные значения: 643|840|860|978 Другие значения игнорируются Значение по умолчанию 860 Коды валют в ISO формате
 				'callback'			=> $this->request->get['Redirect']."&order_id={$this->request->get['order_id']}&f=OrderReturn",  // URL возврата после оплаты или отмены платежа. :transaction - id транзакции или "null" если транзакцию не удалось создадь :account.{field} - поля объекта Account
-				'callback_timeout'	=> $this->request->get['order_id']					// Таймаут после успешного платежа в милисекундах.
+				'callback_timeout'	=> $this->config->get('payment_kit_payme_callback_pay_time')					// Таймаут после успешного платежа в милисекундах.
 		);
 		
 		if($this->config->get('payment_kit_payme_status_tovar')=='Y')

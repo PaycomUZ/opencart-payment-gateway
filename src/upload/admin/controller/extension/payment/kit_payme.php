@@ -166,7 +166,7 @@ class ControllerExtensionPaymentKiTPayme extends Controller {
 				
 		$data['payment_kit_payme_callbak_url'] = str_replace('admin/', '', HTTPS_SERVER)."?route=extension/payment/kit_payme&f=Callback";
 		
-		$data['order_return'] = str_replace('admin/','',HTTPS_SERVER)."?route=extension/payment/kit_payme_cart&f=OrderReturn";
+		$data['order_return'] = str_replace('admin/','',HTTPS_SERVER)."?route=extension/payment/kit_payme&f=OrderReturn";
 
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
