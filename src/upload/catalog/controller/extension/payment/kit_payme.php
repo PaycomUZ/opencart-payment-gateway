@@ -40,7 +40,8 @@ class ControllerExtensionPaymentKiTPayme extends Controller {
 		$subject = trim($this->config->get('config_name'));
 		
 		// Fixed by Me
-		$redirect = str_replace('admin/', '', HTTPS_SERVER)."?route=extension/payment/kit_payme_cart&f=OrderReturn";
+		$redirect = str_replace('admin/', '', HTTPS_SERVER)."?route=extension/payment/kit_payme&f=OrderReturn";
+		//$redirect = str_replace('admin/', '', HTTPS_SERVER)."?route=extension/payment/kit_payme_cart&f=OrderReturn";
         $redirect = str_replace('http://','', $redirect);
 		
 		$config = array (
